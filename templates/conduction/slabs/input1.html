@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Conduction Input1
+{% endblock title %}
+
+
+
+{% load static %}
+
+{% block content %}
+    <form action="{% url 'conduction-slabs-input2' %}" method="POST">
+        {% csrf_token %}
+        <div class="mt-5">
+            <div class="text-white mx-20 text-[50px] font-bold ">
+                Conduction
+                <span class="mx-5 bg-white text-gray-900 text-3xl rounded-3xl px-6 font-extrabold font-sans">Slabs</span> 
+
+            </div>
+            <div class="mx-12 px-10 py-8">
+                <div class="flex justify-between w-8/12 ">
+                    <div class="px-8 py-2 mt-2 text-[43px] text-white font-bold">
+                        1. No.of Walls:
+                    </div>
+                    <div class="">
+                        <input type="text" name="noOfWalls" class="mt-6 px-5 py-5 rounded-xl  bg-[#EF6D58] text-white text-lg" id="noOfWalls" >
+                    </div>
+                </div>
+                <div class="flex justify-between w-8/12 mt-2">
+                    <div class="px-8 py-2 mt-2 text-[43px] text-white font-bold">
+                        2. Area of cross-section:
+                    </div>
+                    <div class="">
+                        <input type="text" name="crossSecion" class="mt-6 px-4 py-5 rounded-xl  bg-[#EF6D58] text-white text-xl italic text-white text-center placeholder-white" id="crossSecion" placeholder="in meters" >
+                    </div>
+                </div>
+                <div class="flex justify-between w-9/12 mt-2">
+                    <div class="px-8 py-2 mt-2 text-[43px] text-white font-bold">
+                        3. Walls are in :
+                    </div>
+                    <div class="flex content-center text-center">
+                        <input type="checkbox" name="series" class="w-6 rounded-lg">
+                        <p class="px-8 py-3 h-16 mt-4 font-bold mx-5 rounded-xl  bg-[#EF6D58] text-white text-4xl italic text-white text-center ">
+                            Series
+                        </p>
+                    </div>
+                    <div class="flex content-center text-center">
+                        <input type="checkbox" name="parallel" class="w-6 rounded-lg">
+                        <p class="px-8 py-3 h-16 mt-4 font-bold mx-5 rounded-xl  bg-[#EF6D58] text-white text-4xl italic text-white text-center ">
+                            Parallel
+                        </p>
+                    </div>
+                </div>
+                <div class="w-10/12 ">
+                    <div class="px-8 py-2 mt-2 text-[43px] text-white font-bold">
+                        4. Ambient Conditions :
+                    </div>
+                    <div class="ml-32 py-2">
+                        <div class="flex justify-between">
+                            <div class="px-8 py-2 text-[33px] text-white font-bold">
+                                Heat Transfer Coefficients:
+                            </div>
+                            <div class="flex align-center text-center">
+                                <div class="py-4 mx-2 text-white font-bold text-xl">1.</div>
+                                <input type="text" name="heatCoef1" class="px-4  rounded-xl  bg-[#EF6D58] text-white text-white text-center" id="">
+                            </div>
+                            <div class="flex align-center text-center">
+                                <div class="py-4 mx-2 text-white font-bold text-xl">2.</div>
+                                <input type="text" name="heatCoef2" class="px-4 rounded-xl  bg-[#EF6D58] text-white" id="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ml-32 py-2 mt-2">
+                        <div class="flex justify-between">
+                            <div class="px-8 py-2 text-[33px] text-white font-bold">
+                                Ambient Temperatures:
+                            </div>
+                            <div class="flex align-center text-center">
+                                <div class="py-4 mx-2 text-white font-bold text-xl">1.</div>
+                                <input type="text" name="ambTemp1" class="px-4  rounded-xl  bg-[#EF6D58] text-white text-white text-center" id="">
+                            </div>
+                            <div class="flex align-center text-center">
+                                <div class="py-4 mx-2 text-white font-bold text-xl">2.</div>
+                                <input type="text" name="ambTemp2" class="px-4 rounded-xl  bg-[#EF6D58] text-white" id="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-2 full px-10 py-3 flex justify-between">
+            <div class="flex ">
+                <a href="/" class="bg-white px-2 py-1 mx-3 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-14 h-14">
+                        <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
+                        <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
+                      </svg>
+                </a>
+                <a href="{% url 'conduction' %}" class="bg-white px-2 py-1 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-14 h-14">
+                        <path fill-rule="evenodd" d="M20.25 12a.75.75 0 01-.75.75H6.31l5.47 5.47a.75.75 0 11-1.06 1.06l-6.75-6.75a.75.75 0 010-1.06l6.75-6.75a.75.75 0 111.06 1.06l-5.47 5.47H19.5a.75.75 0 01.75.75z" clip-rule="evenodd" />
+                      </svg>                      
+                </a>
+            </div>
+            <!-- <a href="{% url 'conduction-slabs-input2' %}" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
+                Next
+            </a> -->
+            
+            <button type="submit" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
+                Next
+            </button>
+        </div>
+    </form>
+
+{% endblock content %}
