@@ -14,8 +14,7 @@ Conduction Input 3
         {% csrf_token %}
         <input type="hidden" id="noOfWalls" name="noOfWalls" value={{noOfWalls}}>
         <input type="hidden" id="crossSecion" name="crossSecion" value={{crossSecion}}>
-        <input type="hidden" id="series" name="series" value={{series}}>
-        <input type="hidden" id="parallel" name="parallel" value={{parallel}}>
+        <input type="hidden" id="walls" name="walls" value={{walls}}>
         <input type="hidden" id="heatCoef1" name="heatCoef1" value={{heatCoef1}}>
         <input type="hidden" id="heatCoef2" name="heatCoef2" value={{heatCoef2}}>
         <input type="hidden" id="ambTemp1" name="ambTemp1" value={{ambTemp1}}>
@@ -35,21 +34,30 @@ Conduction Input 3
                 Select the output Required :
             </div>
             <div class="mx-8 flex justify-center align-center  space-x-4">
-                <input type="checkbox" name="xtemp" class="w-6 rounded-lg mt-4">
+                <input type="check"  name="checkUTemp" class="w-6 rounded-lg mt-4">
                 <div class="w-4/12">
                     <p name="" class="mt-6 px-5 py-5  text-center w-full rounded-xl  bg-[#EF6D58] text-white  font-sans text-white font-extrabold text-2xl "  > Temperature at a distance 'x'</p>
                 </div>
-            </div>
-            <div class="mx-8 flex justify-center align-center  space-x-4">
-                <input type="checkbox" name="hRate" class="w-6 rounded-lg mt-4">
-                <div class="w-4/12">
-                    <p name="" class="mt-6 px-5 text-center py-5 w-full rounded-xl  bg-[#EF6D58] text-white  font-sans text-white font-extrabold text-2xl "  > Heat Transfer rate</p>
+                <div class="">
+                    <input type="text"  name="xtemp" class="placeholder-white mt-6 px-5 py-5  text-center w-full rounded-xl  bg-[#EF6D58] text-white  font-sans text-white italic text-xl border-white border-2 "  >
                 </div>
             </div>
             <div class="mx-8 flex justify-center align-center  space-x-4">
-                <input type="checkbox" name="uTemp" class="w-6 rounded-lg mt-4">
+                <input type="check"  name="checkHTemp" class="w-6 rounded-lg mt-4">
+                <div class="w-4/12">
+                    <p name="" class="mt-6 px-5 text-center py-5 w-full rounded-xl  bg-[#EF6D58] text-white  font-sans text-white font-extrabold text-2xl "  > Heat Transfer rate</p>
+                </div>
+                <div class="">
+                    <input type="text"  name="hRate" class="placeholder-white mt-6 px-5 py-5  text-center w-full rounded-xl  bg-[#EF6D58] text-white  font-sans text-white italic text-xl border-white border-2 "  >
+                </div>
+            </div>
+            <div class="mx-8 flex justify-center align-center  space-x-4">
+                <input type="check"  name="checkUTemp" class="w-6 rounded-lg mt-4">
                 <div class="w-4/12">
                     <p name="" class="mt-6 px-5 text-center py-5 w-full rounded-xl  bg-[#EF6D58] text-white  font-sans text-white font-extrabold text-2xl "  > Unkown Temperature</p>
+                </div>
+                <div class="">
+                    <input type="text" name="uTemp" class="placeholder-white mt-6 px-5 py-5  text-center w-full rounded-xl  bg-[#EF6D58] text-white  font-sans text-white italic text-xl border-white border-2 "  >
                 </div>
             </div>
         </div>
@@ -75,7 +83,7 @@ Conduction Input 3
             
             
             <button type="submit" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
-                Next
+                Submit
             </button>
               
         </div>

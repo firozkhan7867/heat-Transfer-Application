@@ -9,6 +9,8 @@ Conduction Input1
 {% load static %}
 
 {% block content %}
+    <form action="{% url 'conduction-sphere-input2' %}" method="POST">
+        {% csrf_token %}
         <div class="mt-5">
             <div class="text-white mx-20 text-[50px] font-bold ">
                 Conduction
@@ -21,7 +23,7 @@ Conduction Input1
                         1. No.of Materials:
                     </div>
                     <div class="">
-                        <input type="text" name="" class="mt-6 px-5 py-5 rounded-xl  bg-[#EF6D58] text-white text-lg" id="" >
+                        <input type="text" name="nMaterial" class="mt-6 px-5 py-5 rounded-xl  bg-[#EF6D58] text-white text-lg" id="" >
                     </div>
                 </div>
                 <div class="w-10/12 ">
@@ -35,11 +37,11 @@ Conduction Input1
                             </div>
                             <div class="flex align-center text-center">
                                 <div class="py-4 mx-2 text-white font-bold text-xl">1.</div>
-                                <input type="text" name="" class="px-4  rounded-xl  bg-[#EF6D58] text-white text-white text-center" id="">
+                                <input type="text" name="heatTrans1" class="px-4  rounded-xl  bg-[#EF6D58] text-white text-white text-center" id="">
                             </div>
                             <div class="flex align-center text-center">
                                 <div class="py-4 mx-2 text-white font-bold text-xl">2.</div>
-                                <input type="text" name="" class="px-4 rounded-xl  bg-[#EF6D58] text-white" id="">
+                                <input type="text" name="heatTrans2" class="px-4 rounded-xl  bg-[#EF6D58] text-white" id="">
                             </div>
                         </div>
                     </div>
@@ -50,11 +52,11 @@ Conduction Input1
                             </div>
                             <div class="flex align-center text-center">
                                 <div class="py-4 mx-2 text-white font-bold text-xl">1.</div>
-                                <input type="text" name="" class="px-4  rounded-xl  bg-[#EF6D58] text-white text-white text-center" id="">
+                                <input type="text" name="ambTrans1" class="px-4  rounded-xl  bg-[#EF6D58] text-white text-white text-center" id="">
                             </div>
                             <div class="flex align-center text-center">
                                 <div class="py-4 mx-2 text-white font-bold text-xl">2.</div>
-                                <input type="text" name="" class="px-4 rounded-xl  bg-[#EF6D58] text-white" id="">
+                                <input type="text" name="ambTrans2" class="px-4 rounded-xl  bg-[#EF6D58] text-white" id="">
                             </div>
                         </div>
                     </div>
@@ -76,10 +78,16 @@ Conduction Input1
                       </svg>                      
                 </a>
             </div>
-            <a href="{% url 'conduction-sphere-input2' %}" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
+            <!-- <a href="{% url 'conduction-sphere-input2' %}" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
                 Next
-            </a>
+            </a> -->
+
+            
+            <button type="submit" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
+                Submit
+            </button>
               
         </div>
+    </form>
 
 {% endblock content %}

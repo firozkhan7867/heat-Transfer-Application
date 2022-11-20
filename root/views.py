@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+import json
 # Create your views here.
 
 
@@ -24,22 +25,25 @@ def conductionSlabInput2(request):
     if request.method == 'POST':
         noOfWalls = request.POST.get('noOfWalls')
         crossSecion = request.POST.get('crossSecion')
-        series = request.POST.get('series')
-        parallel = request.POST.get('parallel')
+        walls = request.POST.get('walls')
         heatCoef1 = request.POST.get('heatCoef1')
         heatCoef2 = request.POST.get('heatCoef2')
         ambTemp1 = request.POST.get('ambTemp1')
         ambTemp2 = request.POST.get('ambTemp2')
+        # n1 = request.POST.get('n1')
+
+        n = [i for i in range(int(noOfWalls))]
 
         data = {
             "noOfWalls": noOfWalls,
             "crossSecion":crossSecion,
-            "series":series,
-            "parallel":parallel,
+            "walls":walls,
             "heatCoef1":heatCoef1,
             "heatCoef2":heatCoef2,
             "ambTemp1":ambTemp1,
             "ambTemp2":ambTemp2,
+            "n":n,
+            "n1":int(noOfWalls)
         }
 
         return  render(request,"conduction/slabs/input2.html",data)
@@ -52,8 +56,7 @@ def conductionSlabInput3(request):
     if request.method == 'POST':
         noOfWalls = request.POST.get('noOfWalls')
         crossSecion = request.POST.get('crossSecion')
-        series = request.POST.get('series')
-        parallel = request.POST.get('parallel')
+        walls = request.POST.get('walls')
         heatCoef1 = request.POST.get('heatCoef1')
         heatCoef2 = request.POST.get('heatCoef2')
         ambTemp1 = request.POST.get('ambTemp1')
@@ -61,20 +64,30 @@ def conductionSlabInput3(request):
         nTemp = request.POST.get('nTemp')
         nLength = request.POST.get('nLength')
         nThermal = request.POST.get('nThermal')
+        n = request.POST.get('n')
+        n1 = request.POST.get('n1')
+        temps = []
+        lengs = []
+        therms = []
+        for i in range(int(n1)):
+            temps.append(request.POST.get(f"nTemp{i}"))
+            lengs.append(request.POST.get(f"nLength{i}"))
+            therms.append(request.POST.get(f"nThermal{i}"))
+        
 
         data = {
             "noOfWalls": noOfWalls,
             "crossSecion":crossSecion,
-            "series":series,
-            "parallel":parallel,
+            "walls":walls,
             "heatCoef1":heatCoef1,
             "heatCoef2":heatCoef2,
             "ambTemp1":ambTemp1,
             "ambTemp2":ambTemp2,
-            "nTemp":nTemp,
-            "nLength":nLength,
-            "nThermal":nThermal,
+            "nTemp":json.dumps(temps),
+            "nLength":json.dumps(lengs),
+            "nThermal":json.dumps(therms),
         }
+        
 
         return  render(request,"conduction/slabs/input3.html",data)
     return  render(request,"conduction/slabs/input3.html")
@@ -96,12 +109,31 @@ def conductionSlabSolution(request):
         xtemp = request.POST.get('xtemp')
         hRate = request.POST.get('hRate')
         uTemp = request.POST.get('uTemp')
+        output = request.POST.get('output')
+
 
         data = {
-            "sol":0
+            "noOfWalls": noOfWalls,
+            "crossSecion":crossSecion,
+            "series":series,
+            "parallel":parallel,
+            "heatCoef1":heatCoef1,
+            "heatCoef2":heatCoef2,
+            "ambTemp1":ambTemp1,
+            "ambTemp2":ambTemp2,
+            "nTemp":nTemp,
+            "nLength":nLength,
+            "nThermal":nThermal,
+            "xtemp":xtemp,
+            "hRate":hRate,
+            "uTemp":uTemp,
+            "output":output
         }
 
-        return  render(request,"conduction/slabs/input3.html",data)
+        print(data)
+        
+
+        return  render(request,"conduction/slabs/solution.html",data)
 
     return  render(request,"conduction/slabs/solution.html")
 
