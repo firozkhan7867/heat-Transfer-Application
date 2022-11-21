@@ -9,6 +9,9 @@ LCHA Input1
 {% load static %}
 
 {% block content %}
+
+    <form action="{% url 'lcha-cylinder-input2' %}" method="POST">
+        {% csrf_token %}
         <div class="mt-5">
             <div class="text-white mx-20 text-[50px] font-bold ">
                 LCHA
@@ -24,7 +27,7 @@ LCHA Input1
                         1. Radius:
                     </div>
                     <div class="w-6/12">
-                        <input type="text" name="" class="mt-6 px-5 py-5 rounded-lg  bg-[#EF6D58] w-8/12 text-white text-lg" id="" >
+                        <input type="text" name="radi" class="mt-6 px-5 py-5 rounded-lg  bg-[#EF6D58] w-8/12 text-white text-lg" id="" >
                     </div>
                 </div>
                 <div class="flex justify-between w-full pl-20">
@@ -32,7 +35,7 @@ LCHA Input1
                         2. Density:
                     </div>
                     <div class="w-6/12">
-                        <input type="text" name="" class="mt-6 px-5 py-5 rounded-lg  bg-[#EF6D58] w-8/12 text-white text-lg" id="" >
+                        <input type="text" name="density" class="mt-6 px-5 py-5 rounded-lg  bg-[#EF6D58] w-8/12 text-white text-lg" id="" >
                     </div>
                 </div>
                 <div class="flex justify-between w-full pl-20">
@@ -40,7 +43,7 @@ LCHA Input1
                         3. Specific heat:
                     </div>
                     <div class="w-6/12">
-                        <input type="text" name="" class="mt-6 px-5 py-5 rounded-lg  bg-[#EF6D58] w-8/12 text-white text-lg" id="" >
+                        <input type="text" name="sheat" class="mt-6 px-5 py-5 rounded-lg  bg-[#EF6D58] w-8/12 text-white text-lg" id="" >
                     </div>
                 </div>
                 <div class="flex justify-between w-full pl-20">
@@ -48,7 +51,7 @@ LCHA Input1
                         4. Temperature:
                     </div>
                     <div class="w-6/12">
-                        <input type="text" name="" class="mt-6 px-5 py-5 rounded-lg  bg-[#EF6D58] w-8/12 text-white text-lg" id="" >
+                        <input type="text" name="temp" class="mt-6 px-5 py-5 rounded-lg  bg-[#EF6D58] w-8/12 text-white text-lg" id="" >
                     </div>
                 </div>
                 <div class="flex justify-between w-full pl-20">
@@ -56,7 +59,7 @@ LCHA Input1
                         5. Thermal conductivity:
                     </div>
                     <div class="w-6/12">
-                        <input type="text" name="" class="mt-6 px-5 py-5 rounded-lg  bg-[#EF6D58] w-8/12 text-white text-lg" id="" >
+                        <input type="text" name="thermal" class="mt-6 px-5 py-5 rounded-lg  bg-[#EF6D58] w-8/12 text-white text-lg" id="" >
                     </div>
                 </div>
             </div>
@@ -76,10 +79,17 @@ LCHA Input1
                       </svg>                      
                 </a>
             </div>
-            <a href="{% url 'lcha-cylinder-input2' %}" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
+            <!-- <a href="{% url 'lcha-cylinder-input2' %}" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
                 Next
-            </a>
+            </a> -->
+
+            
+            
+            <button type="submit" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
+                Next
+            </button>
               
         </div>
+    </form>
 
 {% endblock content %}

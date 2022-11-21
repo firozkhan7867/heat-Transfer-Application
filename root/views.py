@@ -6,13 +6,15 @@ from root.mainFunctions.composite_cylinder import compositesCylinderlab
 from root.mainFunctions.composite_sphere import compositesSpherelab
 from root.mainFunctions.LHCAslab import LHCASlab
 from root.mainFunctions.LHCASphere import LHCASphere
+from root.mainFunctions.LHCACylinder import LHCACylinder
+from root.mainFunctions.LHCACube import LHCACube
 # Create your views here.
 
 
 def index(request):
     return render(request,'home.html')
 
-    
+
 #----------------------     Conduction    ------------------------------
 
 
@@ -701,13 +703,105 @@ def lchaCylinderInput1(request):
 
 
 def lchaCylinderInput2(request):
+    if request.method == 'POST':
+        radi = request.POST.get('radi')
+        density = request.POST.get('density')
+        sheat = request.POST.get('sheat')
+        temp = request.POST.get('temp')
+        thermal = request.POST.get('thermal')
+        # n1 = request.POST.get('n1')
+
+        data = {
+            "radi": radi,
+            "density":density,
+            "sheat":sheat,
+            "temp":temp,
+            "thermal":thermal,
+        }
+
+        print(data)
+
+        return  render(request,"lcha/cylinder/input2.html",data)
     return  render(request,"lcha/cylinder/input2.html")
 
 
 def lchaCylinderInput3(request):
+    
+    if request.method == 'POST':
+        radi = request.POST.get('radi')
+        density = request.POST.get('density')
+        sheat = request.POST.get('sheat')
+        temp = request.POST.get('temp')
+        thermal = request.POST.get('thermal')
+        pTemp = request.POST.get('pTemp')
+        heatTransferCoefficient = request.POST.get('heatTransferCoefficient')
+        
+
+        data = {
+            "radi": radi,
+            "density":density,
+            "sheat":sheat,
+            "temp":temp,
+            "thermal":thermal,
+            "pTemp":pTemp,
+            "heatTransferCoefficient":heatTransferCoefficient,
+        }
+
+        print(data)
+        
+
+        return  render(request,"lcha/cylinder/input3.html",data)
+    
     return  render(request,"lcha/cylinder/input3.html")
 
 def lchaCylinderSolution(request):
+
+    if request.method == 'POST':
+        radi = float(request.POST.get('radi'))
+        density = float(request.POST.get('density'))
+        sheat = float(request.POST.get('sheat'))
+        temp = float(request.POST.get('temp'))
+        thermal = float(request.POST.get('thermal'))
+        pTemp = float(request.POST.get('pTemp'))
+        heatTransferCoefficient = float(request.POST.get('heatTransferCoefficient'))
+        check = request.POST.get('check')
+        time = request.POST.get('time')
+        ftemp = request.POST.get('ftemp')
+
+        mTime = False
+        Finaltemp = False
+
+        if check == "ftemp":
+            Finaltemp = True
+            mTime = float(ftemp)
+            
+        elif check == "time":
+            mTime = True
+            Finaltemp = float(time)
+
+        
+
+        data = {
+            "radi": radi,
+            "density":density,
+            "sheat":sheat,
+            "temp":temp,
+            "thermal":thermal,
+            "pTemp":pTemp,
+            "time":time,
+            "ftemp":ftemp,
+            "heatTransferCoefficient":heatTransferCoefficient,
+        }
+
+
+        print(data)
+        print("--"*30)
+        print(radi,temp,density,sheat,thermal,pTemp,heatTransferCoefficient,mTime,Finaltemp)
+        data = LHCACylinder(radi,temp,density,sheat,thermal,pTemp,heatTransferCoefficient,mTime,Finaltemp)
+        print(data)
+        
+        return  render(request,"lcha/cylinder/solution.html",data)
+    
     return  render(request,"lcha/cylinder/solution.html")
 
 
@@ -717,13 +811,107 @@ def lchaCubeInput1(request):
 
 
 def lchaCubeInput2(request):
+    
+    if request.method == 'POST':
+        length = request.POST.get('length')
+        density = request.POST.get('density')
+        sheat = request.POST.get('sheat')
+        temp = request.POST.get('temp')
+        thermal = request.POST.get('thermal')
+        # n1 = request.POST.get('n1')
+
+        data = {
+            "length": length,
+            "density":density,
+            "sheat":sheat,
+            "temp":temp,
+            "thermal":thermal,
+        }
+
+        print(data)
+
+        return  render(request,"lcha/cube/input2.html",data)
+
     return  render(request,"lcha/cube/input2.html")
 
 
 def lchaCubeInput3(request):
+    
+    if request.method == 'POST':
+        length = request.POST.get('length')
+        density = request.POST.get('density')
+        sheat = request.POST.get('sheat')
+        temp = request.POST.get('temp')
+        thermal = request.POST.get('thermal')
+        pTemp = request.POST.get('pTemp')
+        heatTransferCoefficient = request.POST.get('heatTransferCoefficient')
+        
+
+        data = {
+            "length": length,
+            "density":density,
+            "sheat":sheat,
+            "temp":temp,
+            "thermal":thermal,
+            "pTemp":pTemp,
+            "heatTransferCoefficient":heatTransferCoefficient,
+        }
+
+        print(data)
+        
+
+        return  render(request,"lcha/cube/input3.html",data)
+    
     return  render(request,"lcha/cube/input3.html")
 
 def lchaCubeSolution(request):
+    
+    if request.method == 'POST':
+        length = float(request.POST.get('length'))
+        density = float(request.POST.get('density'))
+        sheat = float(request.POST.get('sheat'))
+        temp = float(request.POST.get('temp'))
+        thermal = float(request.POST.get('thermal'))
+        pTemp = float(request.POST.get('pTemp'))
+        heatTransferCoefficient = float(request.POST.get('heatTransferCoefficient'))
+        check = request.POST.get('check')
+        time = request.POST.get('time')
+        ftemp = request.POST.get('ftemp')
+
+        mTime = False
+        Finaltemp = False
+
+        if check == "ftemp":
+            Finaltemp = True
+            mTime = float(ftemp)
+            
+        elif check == "time":
+            mTime = True
+            Finaltemp = float(time)
+
+        
+
+        data = {
+            "length": length,
+            "density":density,
+            "sheat":sheat,
+            "temp":temp,
+            "thermal":thermal,
+            "pTemp":pTemp,
+            "time":time,
+            "ftemp":ftemp,
+            "heatTransferCoefficient":heatTransferCoefficient,
+        }
+
+
+        print(data)
+        print("--"*30)
+        print(length,temp,density,sheat,thermal,pTemp,heatTransferCoefficient,mTime,Finaltemp)
+        data = LHCACube(length,temp,density,sheat,thermal,pTemp,heatTransferCoefficient,mTime,Finaltemp)
+        print(data)
+        
+        return  render(request,"lcha/cube/solution.html",data)
+
     return  render(request,"lcha/cube/solution.html")
     
 
