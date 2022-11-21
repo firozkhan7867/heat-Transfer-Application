@@ -52,6 +52,7 @@ def compositesSpherelab(noOfWalls,nTemp,nThermal,nradii,ambTemp1,ambTemp2,heatCo
 			index+=1
 		index=index-2
 		t_r = T[index] - (T[index]-T[index+1])*(((1/r[index])-(1/x))/((1/r[index])-(1/r[index+1])))
+		return t_r
 		# print("Temperature at r = " + str(x) + " is " + str(t_r))
 
 

@@ -13,7 +13,7 @@ LCHA Input 3
 
     <form action="{% url 'lcha-sphere-solution' %}" method="POST">
         {% csrf_token %}
-        <input type="hidden" id="nWalls" name="nWalls" value={{nWalls}}>
+        <input type="hidden" id="radi" name="radi" value={{radi}}>
         <input type="hidden" id="density" name="density" value={{density}}>
         <input type="hidden" id="sheat" name="sheat" value={{sheat}}>
         <input type="hidden" id="temp" name="temp" value={{temp}}>

@@ -584,20 +584,114 @@ def lchaSlabSolution(request):
         data = LHCASlab(nWalls,temp,density,sheat,thermal,pTemp,heatTransferCoefficient,mTime,Finaltemp)
         print(data)
         
-    return  render(request,"lcha/slabs/solution.html",data)
+        return  render(request,"lcha/slabs/solution.html",data)
+        
+    return  render(request,"lcha/slabs/solution.html")
 
 def lchaSphereInput1(request):
     return  render(request,"lcha/sphere/input1.html")
 
 
 def lchaSphereInput2(request):
+    if request.method == 'POST':
+        radi = request.POST.get('radi')
+        density = request.POST.get('density')
+        sheat = request.POST.get('sheat')
+        temp = request.POST.get('temp')
+        thermal = request.POST.get('thermal')
+        # n1 = request.POST.get('n1')
+
+        data = {
+            "radi": radi,
+            "density":density,
+            "sheat":sheat,
+            "temp":temp,
+            "thermal":thermal,
+        }
+
+        print(data)
+
+        return  render(request,"lcha/sphere/input2.html",data)
     return  render(request,"lcha/sphere/input2.html")
 
 
 def lchaSphereInput3(request):
+    
+    if request.method == 'POST':
+        radi = request.POST.get('radi')
+        density = request.POST.get('density')
+        sheat = request.POST.get('sheat')
+        temp = request.POST.get('temp')
+        thermal = request.POST.get('thermal')
+        pTemp = request.POST.get('pTemp')
+        heatTransferCoefficient = request.POST.get('heatTransferCoefficient')
+        
+
+        data = {
+            "radi": radi,
+            "density":density,
+            "sheat":sheat,
+            "temp":temp,
+            "thermal":thermal,
+            "pTemp":pTemp,
+            "heatTransferCoefficient":heatTransferCoefficient,
+        }
+
+        print(data)
+        
+
+        return  render(request,"lcha/sphere/input3.html",data)
+    
     return  render(request,"lcha/sphere/input3.html")
 
 def lchaSphereSolution(request):
+    
+    if request.method == 'POST':
+        radi = float(request.POST.get('radi'))
+        density = float(request.POST.get('density'))
+        sheat = float(request.POST.get('sheat'))
+        temp = float(request.POST.get('temp'))
+        thermal = float(request.POST.get('thermal'))
+        pTemp = float(request.POST.get('pTemp'))
+        heatTransferCoefficient = float(request.POST.get('heatTransferCoefficient'))
+        check = request.POST.get('check')
+        time = request.POST.get('time')
+        ftemp = request.POST.get('ftemp')
+
+        mTime = False
+        Finaltemp = False
+
+        if check == "ftemp":
+            Finaltemp = True
+            mTime = float(ftemp)
+            
+        elif check == "time":
+            mTime = True
+            Finaltemp = float(time)
+
+        
+
+        data = {
+            "radi": radi,
+            "density":density,
+            "sheat":sheat,
+            "temp":temp,
+            "thermal":thermal,
+            "pTemp":pTemp,
+            "time":time,
+            "ftemp":ftemp,
+            "heatTransferCoefficient":heatTransferCoefficient,
+        }
+
+
+        print(data)
+        print("--"*30)
+        print(radi,temp,density,sheat,thermal,pTemp,heatTransferCoefficient,mTime,Finaltemp)
+        data = LHCASphere(radi,temp,density,sheat,thermal,pTemp,heatTransferCoefficient,mTime,Finaltemp)
+        print(data)
+        
+        return  render(request,"lcha/sphere/solution.html",data)
+    
     return  render(request,"lcha/sphere/solution.html")
 
 

@@ -55,6 +55,7 @@ def compositesCylinderlab(noOfWalls,nTemp,nThermal,Length,nradii,ambTemp1,ambTem
 			x1-=r[index]
 			index+=1
 		t_r = T[index-2] - ((math.log(x/r[index-2])/math.log(r[index-1]/r[index-2]))) * (T[index-2]-T[index-1])
+		return t_r
 		# print("Temperature at r = " + str(x) + " is " + str(t_r))
 
 
