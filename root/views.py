@@ -5,6 +5,7 @@ from root.mainFunctions.composite_slab import compositeslab
 from root.mainFunctions.composite_cylinder import compositesCylinderlab
 from root.mainFunctions.composite_sphere import compositesSpherelab
 from root.mainFunctions.LHCAslab import LHCASlab
+from root.mainFunctions.LHCASphere import LHCASphere
 # Create your views here.
 
 

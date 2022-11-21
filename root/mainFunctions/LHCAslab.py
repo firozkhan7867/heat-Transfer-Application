@@ -66,7 +66,7 @@ def LHCASlab(thick,Temp,Density,specheat,thermalcon,mediumtemp,heatcoeff,Time,Fi
         output["tf"]=ans
     elif Time==True:
         ans = math.log(((specMap["Tf"] - specMap["Ta"]) / (specMap["Ti"] - specMap["Ta"]))) / exponent
-        output["Time"]=ans
+        output["time"]=ans
 
     return output
         
