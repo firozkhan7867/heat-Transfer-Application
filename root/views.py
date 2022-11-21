@@ -206,7 +206,7 @@ def conductionSphereInput2(request):
         # n1 = request.POST.get('n1')
 
         nt = [i for i in range(int(nMaterial)+1)]
-        nr = [i for i in range(int(nMaterial))]
+        nr = [i for i in range(int(nMaterial)+1)]
         nc = [i for i in range(int(nMaterial))]
 
         data = {
@@ -247,8 +247,8 @@ def conductionSphereInput3(request):
         
         for i in range(int(n1)+1):
             temps.append(request.POST.get(f"nTemp{i}"))
-        for i in range(int(n1)):
             lengs.append(request.POST.get(f"nLength{i}"))
+        for i in range(int(n1)):
             therms.append(request.POST.get(f"nThermal{i}"))
         
 
@@ -320,6 +320,7 @@ def conductionSphereSolution(request):
             "output":output
         }
 
+        print(data)
         data = compositesSpherelab(nMaterial,nTemp,nThermal,nLength,ambTemp1,ambTemp2,heatCoef1,heatCoef2,hRate,uTemp,xtemp,output)
 
         print(data)
@@ -346,7 +347,7 @@ def conductionCylinderInput2(request):
         # n1 = request.POST.get('n1')
 
         nt = [i for i in range(int(noMatr)+1)]
-        nr = [i for i in range(int(noMatr))]
+        nr = [i for i in range(int(noMatr)+1)]
         nc = [i for i in range(int(noMatr))]
 
         data = {
@@ -385,8 +386,8 @@ def conductionCylinderInput3(request):
         
         for i in range(int(n1)+1):
             temps.append(request.POST.get(f"nTemp{i}"))
-        for i in range(int(n1)):
             lengs.append(request.POST.get(f"nLength{i}"))
+        for i in range(int(n1)):
             therms.append(request.POST.get(f"nThermal{i}"))
         
 
@@ -539,16 +540,27 @@ def lchaSlabInput3(request):
 def lchaSlabSolution(request):
     
     if request.method == 'POST':
-        nWalls = request.POST.get('nWalls')
-        density = request.POST.get('density')
-        sheat = request.POST.get('sheat')
-        temp = request.POST.get('temp')
-        thermal = request.POST.get('thermal')
-        pTemp = request.POST.get('pTemp')
-        heatTransferCoefficient = request.POST.get('heatTransferCoefficient')
+        nWalls = float(request.POST.get('nWalls'))
+        density = float(request.POST.get('density'))
+        sheat = float(request.POST.get('sheat'))
+        temp = float(request.POST.get('temp'))
+        thermal = float(request.POST.get('thermal'))
+        pTemp = float(request.POST.get('pTemp'))
+        heatTransferCoefficient = float(request.POST.get('heatTransferCoefficient'))
         check = request.POST.get('check')
         time = request.POST.get('time')
         ftemp = request.POST.get('ftemp')
+
+        mTime = False
+        Finaltemp = False
+
+        if check == "ftemp":
+            Finaltemp = True
+            mTime = float(ftemp)
+            
+        elif check == "time":
+            mTime = True
+            Finaltemp = float(time)
 
         
 
@@ -566,9 +578,12 @@ def lchaSlabSolution(request):
 
 
         print(data)
-        data = LHCASlab(nWalls,temp,density,sheat,thermal,pTemp,heatTransferCoefficient,Time,Finaltemp)
+        print("--"*30)
+        print(nWalls,temp,density,sheat,thermal,pTemp,heatTransferCoefficient,mTime,Finaltemp)
+        data = LHCASlab(nWalls,temp,density,sheat,thermal,pTemp,heatTransferCoefficient,mTime,Finaltemp)
+        print(data)
         
-    return  render(request,"lcha/slabs/solution.html")
+    return  render(request,"lcha/slabs/solution.html",data)
 
 def lchaSphereInput1(request):
     return  render(request,"lcha/sphere/input1.html")
