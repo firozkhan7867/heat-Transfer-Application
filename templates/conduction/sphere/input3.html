@@ -9,6 +9,17 @@ Conduction Input 3
 {% load static %}
 
 {% block content %}
+
+    <form action="{% url 'conduction-sphere-solution' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" id="nMaterial" name="nMaterial" value={{nMaterial}}>
+        <input type="hidden" id="heatCoef1" name="heatCoef1" value={{heatCoef1}}>
+        <input type="hidden" id="heatCoef2" name="heatCoef2" value={{heatCoef2}}>
+        <input type="hidden" id="ambTemp1" name="ambTemp1" value={{ambTemp1}}>
+        <input type="hidden" id="ambTemp2" name="ambTemp2" value={{ambTemp2}}>
+        <input type="hidden" id="nTemp" name="nTemp" value="{{nTemp}}">
+        <input type="hidden" id="nLength" name="nLength" value="{{nLength}}">
+        <input type="hidden" id="nThermal" name="nThermal" value="{{nThermal}}">
         <div class="mt-5">
             <div class="text-white mx-20 text-[50px] font-bold ">
             Conduction
@@ -16,24 +27,28 @@ Conduction Input 3
         </div>        
         </div>
 
+        
         <div class="mx-6 px-10 py-8">
             <div class="text-center w-10/12 px-8 py-2 mt-2 text-[39px] text-white font-bold">
                 Select the output Required :
             </div>
             <div class="mx-8 flex justify-center align-center  space-x-4">
-                <input type="checkbox" value="" class="w-6 rounded-lg mt-4">
+                <input type="checkbox"  name="xtemp" class="w-6 rounded-lg mt-4">
                 <div class="w-4/12">
                     <p name="" class="mt-6 px-5 py-5  text-center w-full rounded-xl  bg-[#EF6D58] text-white  font-sans text-white font-extrabold text-2xl "  > Temperature at a distance 'x'</p>
                 </div>
+                <div class="">
+                    <input type="text"  name="output" class="placeholder-white mt-6 px-5 py-5  text-center w-full rounded-xl  bg-[#EF6D58] text-white  font-sans text-white italic text-xl border-white border-2 "  >
+                </div>
             </div>
             <div class="mx-8 flex justify-center align-center  space-x-4">
-                <input type="checkbox" value="" class="w-6 rounded-lg mt-4">
+                <input type="checkbox"  name="hRate" class="w-6 rounded-lg mt-4">
                 <div class="w-4/12">
                     <p name="" class="mt-6 px-5 text-center py-5 w-full rounded-xl  bg-[#EF6D58] text-white  font-sans text-white font-extrabold text-2xl "  > Heat Transfer rate</p>
                 </div>
             </div>
             <div class="mx-8 flex justify-center align-center  space-x-4">
-                <input type="checkbox" value="" class="w-6 rounded-lg mt-4">
+                <input type="checkbox"  name="uTemp" class="w-6 rounded-lg mt-4">
                 <div class="w-4/12">
                     <p name="" class="mt-6 px-5 text-center py-5 w-full rounded-xl  bg-[#EF6D58] text-white  font-sans text-white font-extrabold text-2xl "  > Unkown Temperature</p>
                 </div>
@@ -54,10 +69,16 @@ Conduction Input 3
                       </svg>                      
                 </a>
             </div>
-            <a href="{% url 'conduction-sphere-solution' %}" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
+            <!-- <a href="{% url 'conduction-sphere-solution' %}" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
                 Next
-            </a>
+            </a> -->
+
+            
+            <button type="submit" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
+                Submit
+            </button>
               
         </div>
+    </form>
 
 {% endblock content %}

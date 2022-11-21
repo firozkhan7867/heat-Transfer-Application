@@ -9,6 +9,16 @@ LCHA Input 3
 {% load static %}
 
 {% block content %}
+
+    <form action="{% url 'lcha-slabs-solution' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" id="nWalls" name="nWalls" value={{nWalls}}>
+        <input type="hidden" id="density" name="density" value={{density}}>
+        <input type="hidden" id="sheat" name="sheat" value={{sheat}}>
+        <input type="hidden" id="temp" name="temp" value={{temp}}>
+        <input type="hidden" id="thermal" name="thermal" value={{thermal}}>
+        <input type="hidden" id="pTemp" name="pTemp" value={{pTemp}}>
+        <input type="hidden" id="heatTransferCoefficient" name="heatTransferCoefficient" value={{heatTransferCoefficient}}>
         <div class="mt-5">
             <div class="text-white mx-20 text-[50px] font-bold ">
                 LCHA
@@ -27,12 +37,12 @@ LCHA Input 3
                 </div>
                 <div class="">
                     <div class="mx-8 flex justify-center space-x-12 align-center  space-x-4">
-                        <input type="checkbox" value="" class="w-6 rounded-lg mt-4">
+                        <input type="checkbox" name="check" value="time" class="w-6 rounded-lg mt-4">
                         <div class="w-4/12">
                             <p name="" class="mt-6 px-5 py-5  text-center w-full rounded-xl  bg-[#EF6D58] text-white  font-sans text-white font-extrabold text-2xl "  > Time</p>
                         </div>
                         <div class="w-4/12">
-                            <input type="text" name="" class="mt-6 px-5 py-5 w-full rounded-lg  bg-[#EF6D58] text-white text-lg" id="" >
+                            <input type="text" name="time" class="mt-6 px-5 py-5 w-full rounded-lg  bg-[#EF6D58] text-white text-lg" id="" >
                         </div>
                     </div>
                 </div>
@@ -44,12 +54,12 @@ LCHA Input 3
                 </div>
                 <div class="">
                     <div class="mx-8 flex justify-center space-x-12 align-center  space-x-4">
-                        <input type="checkbox" value="" class="w-6 rounded-lg mt-4">
+                        <input type="checkbox" value="ftemp" name="check" class="w-6 rounded-lg mt-4">
                         <div class="w-4/12">
                             <p name="" class="mt-6 px-5 py-5  text-center w-full rounded-xl  bg-[#EF6D58] text-white  font-sans text-white font-extrabold text-2xl "  > Temperature at a distance 'x'</p>
                         </div>
                         <div class="w-4/12">
-                            <input type="text" name="" class="mt-6 px-5 py-5 w-full rounded-lg  bg-[#EF6D58] text-white text-lg" id="" >
+                            <input type="text" name="ftemp" class="mt-6 px-5 py-5 w-full rounded-lg  bg-[#EF6D58] text-white text-lg" id="" >
                         </div>
                     </div>
                 </div>
@@ -70,10 +80,15 @@ LCHA Input 3
                       </svg>                      
                 </a>
             </div>
-            <a href="{% url 'lcha-slabs-solution' %}" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
+            <!-- <a href="{% url 'lcha-slabs-solution' %}" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
                 Next
-            </a>
+            </a> -->
+
+            <button type="submit" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
+                Next
+            </button>
               
         </div>
+    </form>
 
 {% endblock content %}

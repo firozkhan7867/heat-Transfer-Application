@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import json
+from root.mainFunctions.composite_slab import compositeslab
+from root.mainFunctions.composite_cylinder import compositesCylinderlab
+from root.mainFunctions.composite_sphere import compositesSpherelab
+from root.mainFunctions.LHCAslab import LHCASlab
 # Create your views here.
 
 
@@ -32,7 +36,9 @@ def conductionSlabInput2(request):
         ambTemp2 = request.POST.get('ambTemp2')
         # n1 = request.POST.get('n1')
 
-        n = [i for i in range(int(noOfWalls))]
+        nt = [i for i in range(int(noOfWalls)+1)]
+        nr = [i for i in range(int(noOfWalls))]
+        nc = [i for i in range(int(noOfWalls))]
 
         data = {
             "noOfWalls": noOfWalls,
@@ -42,9 +48,13 @@ def conductionSlabInput2(request):
             "heatCoef2":heatCoef2,
             "ambTemp1":ambTemp1,
             "ambTemp2":ambTemp2,
-            "n":n,
+            "nt":nt,
+            "nr":nr,
+            "nc":nc,
             "n1":int(noOfWalls)
         }
+
+        print(data)
 
         return  render(request,"conduction/slabs/input2.html",data)
 
@@ -69,8 +79,10 @@ def conductionSlabInput3(request):
         temps = []
         lengs = []
         therms = []
-        for i in range(int(n1)):
+        
+        for i in range(int(n1)+1):
             temps.append(request.POST.get(f"nTemp{i}"))
+        for i in range(int(n1)):
             lengs.append(request.POST.get(f"nLength{i}"))
             therms.append(request.POST.get(f"nThermal{i}"))
         
@@ -95,22 +107,61 @@ def conductionSlabInput3(request):
 def conductionSlabSolution(request):
     
     if request.method == 'POST':
-        noOfWalls = request.POST.get('noOfWalls')
-        crossSecion = request.POST.get('crossSecion')
-        series = request.POST.get('series')
-        parallel = request.POST.get('parallel')
-        heatCoef1 = request.POST.get('heatCoef1')
-        heatCoef2 = request.POST.get('heatCoef2')
-        ambTemp1 = request.POST.get('ambTemp1')
-        ambTemp2 = request.POST.get('ambTemp2')
+        noOfWalls = int(request.POST.get('noOfWalls'))
+        crossSecion = float(request.POST.get('crossSecion'))
+        walls = request.POST.get('walls')
+        heatCoef1 = float(request.POST.get('heatCoef1'))
+        heatCoef2 = float(request.POST.get('heatCoef2'))
+        ambTemp1 = float(request.POST.get('ambTemp1'))
+        ambTemp2 = float(request.POST.get('ambTemp2'))
         nTemp = request.POST.get('nTemp')
         nLength = request.POST.get('nLength')
         nThermal = request.POST.get('nThermal')
         xtemp = request.POST.get('xtemp')
         hRate = request.POST.get('hRate')
         uTemp = request.POST.get('uTemp')
-        output = request.POST.get('output')
+        output = float(request.POST.get('output'))
 
+        series = False
+        parallel = False
+
+        if walls == "series":
+            series = True
+            parallel = False
+        elif walls == "parallel":
+            parallel = True
+            series = False
+        
+
+        print(uTemp,xtemp,hRate)
+
+        if xtemp ==  "on":
+            xtemp = True
+        else:
+            xtemp = False
+        
+        if hRate ==  "on":
+            hRate = True
+        else:
+            hRate = False
+        
+        if uTemp ==  "on":
+            uTemp = True
+        else:
+            uTemp = False
+        
+        # print(nTemp)
+        # print(nLength)
+        # print(nLength)
+
+        nTemp = list(map(float,json.loads(nTemp)))
+        # print(nTemp)
+
+        nLength = list(map(float,json.loads(nLength)))
+        # print(nLength)
+
+        nThermal = list(map(float,json.loads(nThermal)))
+        # print(nThermal)
 
         data = {
             "noOfWalls": noOfWalls,
@@ -131,9 +182,12 @@ def conductionSlabSolution(request):
         }
 
         print(data)
+        data = compositeslab(noOfWalls,nTemp,nThermal,nLength,series,parallel,ambTemp1,ambTemp2,heatCoef1,heatCoef2,crossSecion,hRate,uTemp,xtemp,output)
+
+        print(data)
         
 
-        return  render(request,"conduction/slabs/solution.html",data)
+        return  render(request,"conduction/slabs/solution.html",{"data":data})
 
     return  render(request,"conduction/slabs/solution.html")
 
@@ -142,13 +196,137 @@ def conductionSphereInput1(request):
 
 
 def conductionSphereInput2(request):
+
+    if request.method == 'POST':
+        nMaterial = request.POST.get('nMaterial')
+        heatCoef1 = request.POST.get('heatCoef1')
+        heatCoef2 = request.POST.get('heatCoef2')
+        ambTemp1 = request.POST.get('ambTemp1')
+        ambTemp2 = request.POST.get('ambTemp2')
+        # n1 = request.POST.get('n1')
+
+        nt = [i for i in range(int(nMaterial)+1)]
+        nr = [i for i in range(int(nMaterial))]
+        nc = [i for i in range(int(nMaterial))]
+
+        data = {
+            "nMaterial": nMaterial,
+            "heatCoef1":heatCoef1,
+            "heatCoef2":heatCoef2,
+            "ambTemp1":ambTemp1,
+            "ambTemp2":ambTemp2,
+            "nt":nt,
+            "nr":nr,
+            "nc":nc,
+            "n1":int(nMaterial)
+        }
+
+        print(data)
+
+        return  render(request,"conduction/sphere/input2.html",data)
+
     return  render(request,"conduction/sphere/input2.html")
 
 
 def conductionSphereInput3(request):
+
+    if request.method == 'POST':
+        nMaterial = request.POST.get('nMaterial')
+        heatCoef1 = request.POST.get('heatCoef1')
+        heatCoef2 = request.POST.get('heatCoef2')
+        ambTemp1 = request.POST.get('ambTemp1')
+        ambTemp2 = request.POST.get('ambTemp2')
+        nTemp = request.POST.get('nTemp')
+        nLength = request.POST.get('nLength')
+        nThermal = request.POST.get('nThermal')
+        n = request.POST.get('n')
+        n1 = request.POST.get('n1')
+        temps = []
+        lengs = []
+        therms = []
+        
+        for i in range(int(n1)+1):
+            temps.append(request.POST.get(f"nTemp{i}"))
+        for i in range(int(n1)):
+            lengs.append(request.POST.get(f"nLength{i}"))
+            therms.append(request.POST.get(f"nThermal{i}"))
+        
+
+        data = {
+            "nMaterial": nMaterial,
+            "heatCoef1":heatCoef1,
+            "heatCoef2":heatCoef2,
+            "ambTemp1":ambTemp1,
+            "ambTemp2":ambTemp2,
+            "nTemp":json.dumps(temps),
+            "nLength":json.dumps(lengs),
+            "nThermal":json.dumps(therms),
+        }
+        
+
+        return  render(request,"conduction/sphere/input3.html",data)
+
     return  render(request,"conduction/sphere/input3.html")
 
 def conductionSphereSolution(request):
+        
+    if request.method == 'POST':
+        nMaterial = int(request.POST.get('nMaterial'))
+        heatCoef1 = float(request.POST.get('heatCoef1'))
+        heatCoef2 = float(request.POST.get('heatCoef2'))
+        ambTemp1 = float(request.POST.get('ambTemp1'))
+        ambTemp2 = float(request.POST.get('ambTemp2'))
+        nTemp = request.POST.get('nTemp')
+        nLength = request.POST.get('nLength')
+        nThermal = request.POST.get('nThermal')
+        xtemp = request.POST.get('xtemp')
+        hRate = request.POST.get('hRate')
+        uTemp = request.POST.get('uTemp')
+        output = float(request.POST.get('output'))
+        
+        if xtemp ==  "on":
+            xtemp = True
+        else:
+            xtemp = False
+        
+        if hRate ==  "on":
+            hRate = True
+        else:
+            hRate = False
+        
+        if uTemp ==  "on":
+            uTemp = True
+        else:
+            uTemp = False
+
+        nTemp = list(map(float,json.loads(nTemp)))
+
+        nLength = list(map(float,json.loads(nLength)))
+
+        nThermal = list(map(float,json.loads(nThermal)))
+
+        data = {
+            "nMaterial": nMaterial,
+            "heatCoef1":heatCoef1,
+            "heatCoef2":heatCoef2,
+            "ambTemp1":ambTemp1,
+            "ambTemp2":ambTemp2,
+            "nTemp":nTemp,
+            "nLength":nLength,
+            "nThermal":nThermal,
+            "xtemp":xtemp,
+            "hRate":hRate,
+            "uTemp":uTemp,
+            "output":output
+        }
+
+        data = compositesSpherelab(nMaterial,nTemp,nThermal,nLength,ambTemp1,ambTemp2,heatCoef1,heatCoef2,hRate,uTemp,xtemp,output)
+
+        print(data)
+        
+
+        return  render(request,"conduction/sphere/solution.html",{"data":data})
+
     return  render(request,"conduction/sphere/solution.html")
 
 
@@ -158,13 +336,139 @@ def conductionCylinderInput1(request):
 
 
 def conductionCylinderInput2(request):
+    if request.method == 'POST':
+        noMatr = request.POST.get('noMatr')
+        lCylinder = request.POST.get('lCylinder')
+        heatCoef1 = request.POST.get('heatCoef1')
+        heatCoef2 = request.POST.get('heatCoef2')
+        ambTemp1 = request.POST.get('ambTemp1')
+        ambTemp2 = request.POST.get('ambTemp2')
+        # n1 = request.POST.get('n1')
+
+        nt = [i for i in range(int(noMatr)+1)]
+        nr = [i for i in range(int(noMatr))]
+        nc = [i for i in range(int(noMatr))]
+
+        data = {
+            "noMatr": noMatr,
+            "lCylinder":lCylinder,
+            "heatCoef1":heatCoef1,
+            "heatCoef2":heatCoef2,
+            "ambTemp1":ambTemp1,
+            "ambTemp2":ambTemp2,
+            "nt":nt,
+            "nr":nr,
+            "nc":nc,
+            "n1":int(noMatr)
+        }
+        print(data)
+
+        return  render(request,"conduction/cylinder/input2.html",data)
     return  render(request,"conduction/cylinder/input2.html")
 
 
 def conductionCylinderInput3(request):
+
+    if request.method == 'POST':
+        noMatr = request.POST.get('noMatr')
+        lCylinder = request.POST.get('lCylinder')
+        heatCoef1 = request.POST.get('heatCoef1')
+        heatCoef2 = request.POST.get('heatCoef2')
+        ambTemp1 = request.POST.get('ambTemp1')
+        ambTemp2 = request.POST.get('ambTemp2')
+        ambTemp2 = request.POST.get('ambTemp2')
+        n = request.POST.get('n')
+        n1 = request.POST.get('n1')
+        temps = []
+        lengs = []
+        therms = []
+        
+        for i in range(int(n1)+1):
+            temps.append(request.POST.get(f"nTemp{i}"))
+        for i in range(int(n1)):
+            lengs.append(request.POST.get(f"nLength{i}"))
+            therms.append(request.POST.get(f"nThermal{i}"))
+        
+
+        data = {
+            "noMatr": noMatr,
+            "lCylinder":lCylinder,
+            "heatCoef1":heatCoef1,
+            "heatCoef2":heatCoef2,
+            "ambTemp1":ambTemp1,
+            "ambTemp2":ambTemp2,
+            "nTemp":json.dumps(temps),
+            "nLength":json.dumps(lengs),
+            "nThermal":json.dumps(therms),
+        }
+
+        print(data)
+        
+
+        return  render(request,"conduction/cylinder/input3.html",data)
     return  render(request,"conduction/cylinder/input3.html")
 
 def conductionCylinderSolution(request):
+    
+    if request.method == 'POST':
+        noMatr = int(request.POST.get('noMatr'))
+        lCylinder = float(request.POST.get('lCylinder'))
+        heatCoef1 = float(request.POST.get('heatCoef1'))
+        heatCoef2 = float(request.POST.get('heatCoef2'))
+        ambTemp1 = float(request.POST.get('ambTemp1'))
+        ambTemp2 = float(request.POST.get('ambTemp2'))
+        nTemp = request.POST.get('nTemp')
+        nLength = request.POST.get('nLength')
+        nThermal = request.POST.get('nThermal')
+        xtemp = request.POST.get('xtemp')
+        hRate = request.POST.get('hRate')
+        uTemp = request.POST.get('uTemp')
+        output = float(request.POST.get('output'))
+
+        if xtemp ==  "on":
+            xtemp = True
+        else:
+            xtemp = False
+        
+        if hRate ==  "on":
+            hRate = True
+        else:
+            hRate = False
+        
+        if uTemp ==  "on":
+            uTemp = True
+        else:
+            uTemp = False
+        
+
+        nTemp = list(map(float,json.loads(nTemp)))
+        nLength = list(map(float,json.loads(nLength)))
+
+        nThermal = list(map(float,json.loads(nThermal)))
+
+        data = {
+            "noMatr": noMatr,
+            "lCylinder":lCylinder,
+            "heatCoef1":heatCoef1,
+            "heatCoef2":heatCoef2,
+            "ambTemp1":ambTemp1,
+            "ambTemp2":ambTemp2,
+            "nTemp":nTemp,
+            "nLength":nLength,
+            "nThermal":nThermal,
+            "xtemp":xtemp,
+            "hRate":hRate,
+            "uTemp":uTemp,
+            "output":output
+        }
+
+        print(data)
+        data = compositesCylinderlab(noMatr,nTemp,nThermal,lCylinder,nLength,ambTemp1,ambTemp2,heatCoef1,heatCoef2,hRate,uTemp,xtemp,output)
+
+        print(data)
+        
+
+        return  render(request,"conduction/cylinder/solution.html",{"data":data})
     return  render(request,"conduction/cylinder/solution.html")
     
 
@@ -182,13 +486,88 @@ def lchaSlabInput1(request):
 
 
 def lchaSlabInput2(request):
+    if request.method == 'POST':
+        nWalls = request.POST.get('nWalls')
+        density = request.POST.get('density')
+        sheat = request.POST.get('sheat')
+        temp = request.POST.get('temp')
+        thermal = request.POST.get('thermal')
+        # n1 = request.POST.get('n1')
+
+        data = {
+            "nWalls": nWalls,
+            "density":density,
+            "sheat":sheat,
+            "temp":temp,
+            "thermal":thermal,
+        }
+
+        print(data)
+
+        return  render(request,"lcha/slabs/input2.html",data)
     return  render(request,"lcha/slabs/input2.html")
 
 
 def lchaSlabInput3(request):
+    
+    if request.method == 'POST':
+        nWalls = request.POST.get('nWalls')
+        density = request.POST.get('density')
+        sheat = request.POST.get('sheat')
+        temp = request.POST.get('temp')
+        thermal = request.POST.get('thermal')
+        pTemp = request.POST.get('pTemp')
+        heatTransferCoefficient = request.POST.get('heatTransferCoefficient')
+        
+
+        data = {
+            "nWalls": nWalls,
+            "density":density,
+            "sheat":sheat,
+            "temp":temp,
+            "thermal":thermal,
+            "pTemp":pTemp,
+            "heatTransferCoefficient":heatTransferCoefficient,
+        }
+
+        print(data)
+        
+
+        return  render(request,"lcha/slabs/input3.html",data)
     return  render(request,"lcha/slabs/input3.html")
 
 def lchaSlabSolution(request):
+    
+    if request.method == 'POST':
+        nWalls = request.POST.get('nWalls')
+        density = request.POST.get('density')
+        sheat = request.POST.get('sheat')
+        temp = request.POST.get('temp')
+        thermal = request.POST.get('thermal')
+        pTemp = request.POST.get('pTemp')
+        heatTransferCoefficient = request.POST.get('heatTransferCoefficient')
+        check = request.POST.get('check')
+        time = request.POST.get('time')
+        ftemp = request.POST.get('ftemp')
+
+        
+
+        data = {
+            "nWalls": nWalls,
+            "density":density,
+            "sheat":sheat,
+            "temp":temp,
+            "thermal":thermal,
+            "pTemp":pTemp,
+            "time":time,
+            "ftemp":ftemp,
+            "heatTransferCoefficient":heatTransferCoefficient,
+        }
+
+
+        print(data)
+        data = LHCASlab(nWalls,temp,density,sheat,thermal,pTemp,heatTransferCoefficient,Time,Finaltemp)
+        
     return  render(request,"lcha/slabs/solution.html")
 
 def lchaSphereInput1(request):

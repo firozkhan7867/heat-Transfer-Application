@@ -9,41 +9,55 @@ Conduction Input 2
 {% load static %}
 
 {% block content %}
+    <form action="{% url 'conduction-sphere-input3' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" id="nMaterial" name="nMaterial" value={{nMaterial}}>
+        <input type="hidden" id="heatCoef1" name="heatCoef1" value={{heatCoef1}}>
+        <input type="hidden" id="heatCoef2" name="heatCoef2" value={{heatCoef2}}>
+        <input type="hidden" id="ambTemp1" name="ambTemp1" value={{ambTemp1}}>
+        <input type="hidden" id="ambTemp2" name="ambTemp2" value={{ambTemp2}}>
+        <input type="hidden" id="n" name="n" value={{n}}>
+        <input type="hidden" id="n1" name="n1" value={{n1}}>
+
         <div class="mt-5">
             <div class="text-white mx-20 text-[50px] font-bold ">
                 Conduction
                 <span class="mx-5 bg-white text-gray-900 text-3xl rounded-3xl px-6 font-extrabold font-sans">Sphere</span> 
             </div>            
         </div>
-        <div class="mx-6 px-10 py-8">
-            <div class="text-center w-6/12 px-8 py-2 mt-2 text-[39px] text-white font-bold">
-                Enter Comma -',' separated values:
-            </div>
-            <div class="mx-8 flex justify-between w-8/12">
-                <div class="px-8 py-2 mt-2 text-[33px] text-white font-bold">
+        <div class="mx-6 flex justify-between px-10 py-8 mb-16">
+            <div class="mx-8  w-4/12">
+                <div class="px-8 py-2 mt-2 text-[23px] text-white font-bold">
                     1. N + 1 Temperatures:
                 </div>
-                <div class="w-4/12">
-                    <input type="text" name="" class="mt-6 px-5 py-5 w-full rounded-xl  bg-[#EF6D58] text-white text-lg" id="" >
+                <div class="flex flex-wrap space-y-6 overflow-x-hidden h-[250px] scroll-smooth">
+                    {% for i in nt %}
+                        <input type="text" name="nTemp{{i}}" class="mt-6 mx-5 h-[90px] px-5 py-5 w-4/12 rounded-xl  bg-[#EF6D58] text-white text-lg" id="" >
+                    {% endfor %}
                 </div>
             </div>
-            <div class="mx-8 flex justify-between w-8/12">
-                <div class="px-8 py-2 mt-2 text-[33px] text-white font-bold">
+            <div class="mx-8  w-4/12">
+                <div class="px-8 py-2 mt-2 text-[23px] text-white font-bold">
                     2. N Raddi:
                 </div>
-                <div class="w-4/12">
-                    <input type="text" name="" class="mt-6 px-5 py-5 w-full rounded-xl  bg-[#EF6D58] text-white text-lg" id="" >
+                <div class="flex flex-wrap space-y-6 overflow-x-hidden h-[250px]">
+                    {% for i in nr %}
+                        <input type="text" name="nLength{{i}}" class="mt-6 mx-5 h-[90px] px-5 py-5 w-4/12 rounded-xl  bg-[#EF6D58] text-white text-lg" id="" >
+                    {% endfor %}
                 </div>
             </div>
-            <div class="mx-8 flex justify-between w-8/12">
-                <div class="px-8 py-2 mt-2 text-[33px] text-white font-bold">
+            <div class="mx-8  w-4/12">
+                <div class="px-8 py-2 mt-2 text-[23px] text-white font-bold">
                     3. N Thermal conductivities :
                 </div>
-                <div class="w-4/12">
-                    <input type="text" name="" class="mt-6 px-5 py-5 w-full rounded-xl  bg-[#EF6D58] text-white text-lg" id="" >
+                <div class="flex flex-wrap space-y-6 overflow-x-hidden h-[250px]">
+                    {% for i in nc %}
+                        <input type="text" name="nThermal{{i}}" class="mt-6 mx-5  h-[90px] px-5 py-5 w-4/12 rounded-xl  bg-[#EF6D58] text-white text-lg" id="" >
+                    {% endfor %}
                 </div>
             </div>
         </div>
+
 
         <div class="mt-2 full px-10 py-3 flex justify-between">
             <div class="flex ">
@@ -60,10 +74,17 @@ Conduction Input 2
                 </a>
             </div>
             
-            <a href="{% url 'conduction-sphere-input3' %}" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
+            <!-- <a href="{% url 'conduction-sphere-input3' %}" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
                 Next
-            </a>
+            </a> -->
+
+            
+            
+            <button type="submit" class="bg-white px-5 py-3 text-gray-900 font-extrabold text-3xl  text-center rounded-lg">
+                Submit
+            </button>
               
         </div>
+    </form>
 
 {% endblock content %}
