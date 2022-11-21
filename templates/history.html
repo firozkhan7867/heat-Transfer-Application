@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,18 +46,18 @@
     <div class="h-screen relative w-full bg-[#28293E]">
         <div class=" flex justify-between py-4 px-5 bg-[#28293E] ">
             <div class="flex items-center ">
-                <img class=" w-10 h-10 align-bottom" src="./assets/logo.svg" alt="">
+                <img class=" w-10 h-10 align-bottom" src="{% static './images/logo.svg' %}" alt="">
                 <div class="cfont ml-1 mt-1 text-[20px] text-white font-extrabold">HEAT TRANSFER <snap class="text-[#EF6D58]">ANALYSIS</snap></div>
             </div>
             <button class="text-[14px] mr-16 border cfont font-bold text-white p-3 rounded-md h-[45px] w-[150px]">History</button>
         </div>
         
         <div class="px-11 py-1 ml-4 flex">
-            <a class="cfont text-white font-extrabold text-[56px]" href="http://">History</a>
+            <a class="cfont text-white font-extrabold text-[56px]" href="">History</a>
             <div class="flex justify-evenly w-4/12 mt-9">
-            <a class="cfont align-baseline text-[#EF6D58]" href="http://">Conduction</a>
-            <a class="cfont text-white align-baseline"href="http://">LHCA</a>
-            <a class="cfont text-white align-baseline"href="http://">Heat Exchangers</a>
+            <a class="cfont align-baseline text-[#EF6D58]" href="">Conduction</a>
+            <a class="cfont text-white align-baseline"href="">LHCA</a>
+            <a class="cfont text-white align-baseline"href="">Heat Exchangers</a>
             </div>
         </div>
 

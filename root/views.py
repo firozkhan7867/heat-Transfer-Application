@@ -586,7 +586,7 @@ def lchaSlabSolution(request):
         data = LHCASlab(nWalls,temp,density,sheat,thermal,pTemp,heatTransferCoefficient,mTime,Finaltemp)
         print(data)
         
-        return  render(request,"lcha/slabs/solution.html",data)
+        return  render(request,"lcha/slabs/solution.html",{"data":data})
         
     return  render(request,"lcha/slabs/solution.html")
 
@@ -692,7 +692,7 @@ def lchaSphereSolution(request):
         data = LHCASphere(radi,temp,density,sheat,thermal,pTemp,heatTransferCoefficient,mTime,Finaltemp)
         print(data)
         
-        return  render(request,"lcha/sphere/solution.html",data)
+        return  render(request,"lcha/sphere/solution.html",{"data":data})
     
     return  render(request,"lcha/sphere/solution.html")
 
@@ -800,7 +800,7 @@ def lchaCylinderSolution(request):
         data = LHCACylinder(radi,temp,density,sheat,thermal,pTemp,heatTransferCoefficient,mTime,Finaltemp)
         print(data)
         
-        return  render(request,"lcha/cylinder/solution.html",data)
+        return  render(request,"lcha/cylinder/solution.html",{"data":data})
     
     return  render(request,"lcha/cylinder/solution.html")
 
@@ -910,7 +910,7 @@ def lchaCubeSolution(request):
         data = LHCACube(length,temp,density,sheat,thermal,pTemp,heatTransferCoefficient,mTime,Finaltemp)
         print(data)
         
-        return  render(request,"lcha/cube/solution.html",data)
+        return  render(request,"lcha/cube/solution.html",{"data":data})
 
     return  render(request,"lcha/cube/solution.html")
     
@@ -920,3 +920,6 @@ def lchaCubeSolution(request):
 def heat(request):
     return  HttpResponse("""HEAT""")
     
+
+def history(request):
+    return render(request,"history.html")

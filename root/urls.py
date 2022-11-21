@@ -40,5 +40,6 @@ urlpatterns = [
     path('lcha/cube/input3',views.lchaCubeInput3,name="lcha-cube-input3"),
     path('lcha/cube/solution',views.lchaCubeSolution,name="lcha-cube-solution"),
     path('heat',views.heat,name="heat"),
+    path('history',views.history,name="history"),
 ]
 
