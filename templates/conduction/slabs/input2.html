@@ -38,7 +38,7 @@ Conduction Input 2
                 </div>
                 <div class="flex flex-wrap space-y-6 overflow-x-hidden h-[250px] scroll-smooth">
                     {% for i in nt %}
-                        <input type="text" name="nTemp{{i}}" class="mt-6 mx-5 h-[90px] px-5 py-5 w-4/12 rounded-xl  bg-[#EF6D58] text-white text-lg" id="" >
+                        <input type="text" name="nTemp{{i}}" class="mt-6 mx-5 h-[90px] px-5 py-5 w-4/12 rounded-xl  bg-[#EF6D58] text-white text-lg italic text-white text-center placeholder-white" id="nTemp{{i}}" placeholder="C" >
                     {% endfor %}
                 </div>
             </div>
@@ -48,17 +48,17 @@ Conduction Input 2
                 </div>
                 <div class="flex flex-wrap space-y-6 overflow-x-hidden h-[250px]">
                     {% for i in nr %}
-                        <input type="text" name="nLength{{i}}" class="mt-6 mx-5 h-[90px] px-5 py-5 w-4/12 rounded-xl  bg-[#EF6D58] text-white text-lg" id="" >
+                        <input type="text" name="nLength{{i}}" class="mt-6 mx-5 h-[90px] px-5 py-5 w-4/12 rounded-xl  bg-[#EF6D58] text-white text-lg italic text-white text-center placeholder-white" id="nLength{{i}" placeholder="meters"  >
                     {% endfor %}
                 </div>
             </div>
             <div class="mx-8  w-4/12">
                 <div class="px-8 py-2 mt-2 text-[23px] text-white font-bold">
-                    3. Thermal conductivities :
+                    3. Thermal conductivities:
                 </div>
                 <div class="flex flex-wrap space-y-6 overflow-x-hidden h-[250px]">
                     {% for i in nc %}
-                        <input type="text" name="nThermal{{i}}" class="mt-6 mx-5  h-[90px] px-5 py-5 w-4/12 rounded-xl  bg-[#EF6D58] text-white text-lg" id="" >
+                        <input type="text" name="nThermal{{i}}" class="mt-6 mx-5  h-[90px] px-5 py-5 w-4/12 rounded-xl  bg-[#EF6D58] text-white text-lg italic text-white text-center placeholder-white" id="nThermal{{i}}" placeholder="W/mK" >
                     {% endfor %}
                 </div>
             </div>

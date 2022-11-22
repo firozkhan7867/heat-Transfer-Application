@@ -190,7 +190,7 @@ def conductionSlabSolution(request):
         print(data)
         
 
-        return  render(request,"conduction/slabs/solution.html",{"data":data})
+        return  render(request,"conduction/slabs/solution.html",{"data":data,"output":output})
 
     return  render(request,"conduction/slabs/solution.html")
 
@@ -330,7 +330,7 @@ def conductionSphereSolution(request):
         print(data)
         
 
-        return  render(request,"conduction/sphere/solution.html",{"data":data})
+        return  render(request,"conduction/sphere/solution.html",{"data":data,"output":output})
 
     return  render(request,"conduction/sphere/solution.html")
 
