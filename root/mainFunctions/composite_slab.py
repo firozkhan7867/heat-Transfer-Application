@@ -143,7 +143,7 @@ def compositeslab(noOfWalls,nTemp,nThermal,nLength,series,parallel,ambTemp1,ambT
 		output['hrate']=Q
 
 	# Calculating heat flux
-	q = Q/Area
+	#q = Q/Area
 	if checkxtemp==True:
 		output['xTemp']=Find_Temp(T,L,xvalue)
 	if checkutemp==True:

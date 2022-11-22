@@ -157,9 +157,9 @@ def compositesCylinderlab(noOfWalls,nTemp,nThermal,Length,nradii,ambTemp1,ambTem
 		T[index] = Temp(T,T_amb,H,K,index,Length,n_layers,r,Q)
 
 	if checkxtemp==True:
-		output['xTemp']=Find_Temp(T,r,xvalue)
+		output['xtemp']=Find_Temp(T,r,xvalue)
 	if checkutemp==True:
-		output['uTemp']=T[ind]
+		output['utemp']=T[ind]
 	return output
 	# # Calculating heat flux
 	# Area = 2*pi*r[-1]*Length

@@ -4,7 +4,7 @@ def compositesSpherelab(noOfWalls,nTemp,nThermal,nradii,ambTemp1,ambTemp2,heatCo
 
 	# Resistance for Series Connection
 	def R_series(K,r,H,n_walls):
-		Res = lambda i : (1/(4*pi*K[i]))*((1/r[i])-(1/r[i]))
+		Res = lambda i : (1/(4*pi*K[i]))*((1/r[i])-(1/r[i+1]))
 		Resistances=[]
 		for i in range(n_walls):
 			Resistances.append(Res(i))

@@ -123,8 +123,7 @@ def conductionSlabSolution(request):
         xtemp = request.POST.get('xtemp')
         hRate = request.POST.get('hRate')
         uTemp = request.POST.get('uTemp')
-        output = float(request.POST.get('output'))
-
+        output=0
         series = False
         parallel = False
 
@@ -140,6 +139,7 @@ def conductionSlabSolution(request):
 
         if xtemp ==  "on":
             xtemp = True
+            output = float(request.POST.get('output'))
         else:
             xtemp = False
         
@@ -285,10 +285,11 @@ def conductionSphereSolution(request):
         xtemp = request.POST.get('xtemp')
         hRate = request.POST.get('hRate')
         uTemp = request.POST.get('uTemp')
-        output = float(request.POST.get('output'))
+        output = 0
         
         if xtemp ==  "on":
             xtemp = True
+            output = float(request.POST.get('output'))
         else:
             xtemp = False
         
@@ -427,10 +428,11 @@ def conductionCylinderSolution(request):
         xtemp = request.POST.get('xtemp')
         hRate = request.POST.get('hRate')
         uTemp = request.POST.get('uTemp')
-        output = float(request.POST.get('output'))
+        output = 0
 
         if xtemp ==  "on":
             xtemp = True
+            output = float(request.POST.get('output'))
         else:
             xtemp = False
         
@@ -472,7 +474,7 @@ def conductionCylinderSolution(request):
         print(data)
         
 
-        return  render(request,"conduction/cylinder/solution.html",{"data":data})
+        return  render(request,"conduction/cylinder/solution.html",{"data":data,"output":output})
     return  render(request,"conduction/cylinder/solution.html")
     
 
